@@ -30,50 +30,20 @@ const MainContainer: React.FC = () => {
     return result?.data && Array.isArray(result.data) && result.data.length > 0;
   }, [result]);
 
-  const canShowResults = useMemo(() => {
-    return !loading && hasData;
-  }, [loading, hasData]);
-
-  const shouldShowEmptyState = useMemo(() => {
-    return !loading && !hasData && result !== undefined;
-  }, [loading, hasData, result]);
+  const showNoData = !loading && !hasData;
 
   return (
     <Box>
       <UrlInput />
-
-      {loading && (
-        <Fade in={loading}>
-          <Box
-            display="flex"
-            justifyContent="center"
-            alignItems="center"
-            py={4}
-            role="status"
-            aria-live="polite"
-          >
-            <Stack spacing={2} alignItems="center">
-              <CircularProgress />
-              <Typography variant="body2" color="text.secondary">
-                Loading data...
-              </Typography>
-            </Stack>
-          </Box>
-        </Fade>
+      {hasData && (
+        <Box>
+          <CriteriaBuilder />
+          <AndButton />
+          <ResultContainer />
+        </Box>
       )}
-
-      {canShowResults && (
-        <Fade in={canShowResults}>
-          <Box>
-            <CriteriaBuilder />
-            <AndButton />
-            <ResultContainer />
-          </Box>
-        </Fade>
-      )}
-
-      {shouldShowEmptyState && (
-        <Fade in={shouldShowEmptyState}>
+      {showNoData && (
+        <Fade in={showNoData}>
           <Box
             display="flex"
             justifyContent="center"
