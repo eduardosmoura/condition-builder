@@ -1,5 +1,12 @@
-import React, { lazy, Suspense } from 'react';
-import { Container, Typography, CircularProgress, Box } from '@mui/material';
+import React, { lazy, Suspense, useMemo } from 'react';
+import {
+  Container,
+  Typography,
+  CircularProgress,
+  Box,
+  Fade,
+  Stack
+} from '@mui/material';
 import {
   FilterProvider,
   useFilter
@@ -17,15 +24,76 @@ const ResultContainer = lazy(
 const AndButton = lazy(() => import('components/AndButton/AndButton'));
 
 const MainContainer: React.FC = () => {
-  const { result } = useFilter();
+  const { result, loading } = useFilter();
+
+  const hasData = useMemo(() => {
+    return result?.data && Array.isArray(result.data) && result.data.length > 0;
+  }, [result]);
+
+  const canShowResults = useMemo(() => {
+    return !loading && hasData;
+  }, [loading, hasData]);
+
+  const shouldShowEmptyState = useMemo(() => {
+    return !loading && !hasData && result !== undefined;
+  }, [loading, hasData, result]);
 
   return (
-    <>
+    <Box>
       <UrlInput />
-      {result.columns.length > 1 && <CriteriaBuilder />}
-      {result.columns.length > 1 && <AndButton />}
-      {result.columns.length > 1 && <ResultContainer />}
-    </>
+
+      {loading && (
+        <Fade in={loading}>
+          <Box
+            display="flex"
+            justifyContent="center"
+            alignItems="center"
+            py={4}
+            role="status"
+            aria-live="polite"
+          >
+            <Stack spacing={2} alignItems="center">
+              <CircularProgress />
+              <Typography variant="body2" color="text.secondary">
+                Loading data...
+              </Typography>
+            </Stack>
+          </Box>
+        </Fade>
+      )}
+
+      {canShowResults && (
+        <Fade in={canShowResults}>
+          <Box>
+            <CriteriaBuilder />
+            <AndButton />
+            <ResultContainer />
+          </Box>
+        </Fade>
+      )}
+
+      {shouldShowEmptyState && (
+        <Fade in={shouldShowEmptyState}>
+          <Box
+            display="flex"
+            justifyContent="center"
+            alignItems="center"
+            py={8}
+            role="status"
+            aria-live="polite"
+          >
+            <Typography
+              variant="body1"
+              color="text.secondary"
+              textAlign="center"
+              sx={{ fontStyle: 'italic' }}
+            >
+              No data available. Please provide a valid url with data.
+            </Typography>
+          </Box>
+        </Fade>
+      )}
+    </Box>
   );
 };
 
