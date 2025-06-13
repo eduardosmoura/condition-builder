@@ -1,0 +1,87 @@
+/* ===========================================================================
+   GLOBAL STYLES
+   =========================================================================== */
+
+/* Base styles */
+body {
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  margin: 0;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+/* ===========================================================================
+   COMPONENT STYLES
+   =========================================================================== */
+
+/* Criteria Group Styles */
+.criteria-group {
+  margin: 30px 0;
+  padding: 5px 10px 5px 15px;
+  position: relative;
+}
+
+.criteria-row {
+  padding: 5px;
+}
+
+/* ===========================================================================
+   AND BUTTON STYLES
+   =========================================================================== */
+
+/* And Button Base */
+.criteria-group-container .and-button {
+  color: #808080;
+  display: block;
+  font-size: 20px;
+  font-weight: bold;
+  position: relative;
+  text-align: center;
+  text-transform: uppercase;
+  width: 100px;
+}
+
+/* Hide first and button */
+.criteria-group-container:first-of-type .and-button:first-of-type {
+  display: none;
+}
+
+/* ===========================================================================
+   CONNECTOR LINE STYLES
+   =========================================================================== */
+
+/* Shared connector line styles */
+.criteria-group-container:last-child .criteria-group::after,
+.and-button::before,
+.and-button::after {
+  background-color: #c0c0c0;
+  content: '';
+  display: block;
+  height: 25px;
+  left: 50px;
+  position: absolute;
+  width: 2px;
+}
+
+/* Top connector line */
+.and-button::before {
+  top: -30px;
+}
+
+/* Bottom connector line */
+.and-button::after {
+  bottom: -30px;
+}
+
+/* Last group connector line */
+.criteria-group-container:last-child .criteria-group::after {
+  bottom: -30px;
+  height: 30px;
+}
