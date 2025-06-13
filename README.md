@@ -130,7 +130,7 @@ pnpm run test:watch
 ## Live Deployment
 
 A live deployment of the Condition Builder is available at:
-**[https://condition-builder.vercel.app/](https://condition-builder.vercel.app/)**
+**[condition-builder-green.vercel.app/](condition-builder-green.vercel.app/)**
 
 ## Additional Notes
 
