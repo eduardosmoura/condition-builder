@@ -14,7 +14,7 @@ interface TestUser {
 }
 
 describe('CriteriaSearch', () => {
-  let criteriaSearch: CriteriaSearch;
+  let criteriaSearch: CriteriaSearch<TestUser>;
   let sampleData: TestUser[];
   let criteriaGroup: CriteriaGroup;
   let criteriaList: CriteriaList;

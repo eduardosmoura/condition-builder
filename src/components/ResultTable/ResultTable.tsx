@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Box, Skeleton } from '@mui/material';
-import { DataGrid, GridColDef, GridValueGetterParams } from '@mui/x-data-grid';
+import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import { SKELETON_ROWS_COUNT } from 'utils';
 
 const styles = {
@@ -26,11 +26,10 @@ interface Props {
 }
 
 const ResultTable: React.FC<Props> = ({ columns, rows, loading }) => {
-  const [pageSize, setPageSize] = useState<number>(100);
-
-  const handlePageSize = (pageSize: number) => {
-    setPageSize(pageSize);
-  };
+  const [paginationModel, setPaginationModel] = useState({
+    page: 0,
+    pageSize: 100
+  });
 
   const attributes: GridColDef[] = [];
   columns.map((column) => {
@@ -38,10 +37,10 @@ const ResultTable: React.FC<Props> = ({ columns, rows, loading }) => {
       field: column,
       headerName: column,
       sortable: true,
-      valueGetter: (params: GridValueGetterParams) => {
-        return typeof params.row[column] === 'object'
-          ? JSON.stringify(params.row[column])
-          : params.row[column];
+      valueGetter: (value, row) => {
+        return typeof row[column] === 'object'
+          ? JSON.stringify(row[column])
+          : row[column];
       }
     });
   });
@@ -60,10 +59,10 @@ const ResultTable: React.FC<Props> = ({ columns, rows, loading }) => {
           loading={loading}
           sx={styles.dataGrid}
           columns={attributes}
-          pageSize={pageSize}
-          rowsPerPageOptions={[10, 20, 50, 75, 100]}
+          paginationModel={paginationModel}
+          onPaginationModelChange={setPaginationModel}
+          pageSizeOptions={[10, 20, 50, 75, 100]}
           checkboxSelection={false}
-          onPageSizeChange={handlePageSize}
           pagination
         />
       )}

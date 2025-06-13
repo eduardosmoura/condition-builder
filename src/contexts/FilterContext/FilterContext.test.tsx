@@ -8,8 +8,7 @@ import { Result } from 'types';
 import { EMPTY_CRITERIA_GROUP, EMPTY_RESULT } from 'utils/constants';
 
 vi.mock('../../core/CriteriaGroup/CriteriaGroup', () => ({
-  CriteriaGroup: vi.fn().mockImplementation(() => ({
-  }))
+  CriteriaGroup: vi.fn().mockImplementation(() => ({}))
 }));
 
 describe('FilterContext', () => {

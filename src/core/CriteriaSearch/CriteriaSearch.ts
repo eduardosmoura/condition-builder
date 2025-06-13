@@ -2,11 +2,6 @@ import { Filter, Operator } from 'types';
 import { CriteriaGroup } from '../CriteriaGroup/CriteriaGroup';
 
 /**
- * Generic type for searchable data objects
- */
-type SearchableData = Record<string, unknown>;
-
-/**
  * Options for configuring search behavior
  */
 interface SearchOptions {
@@ -20,7 +15,7 @@ interface SearchOptions {
  * CriteriaSearch class for filtering data based on dynamic criteria
  * Supports AND/OR logical operations with various comparison operators
  */
-export class CriteriaSearch<T extends SearchableData = SearchableData> {
+export class CriteriaSearch<T> {
   private readonly data: T[];
   private readonly criteriaGroup: CriteriaGroup;
   private readonly options: Required<SearchOptions>;
@@ -126,7 +121,7 @@ export class CriteriaSearch<T extends SearchableData = SearchableData> {
       return this.getNestedValue(item, fieldName);
     }
 
-    return item[fieldName];
+    return (item as Record<string, unknown>)[fieldName];
   }
 
   /**

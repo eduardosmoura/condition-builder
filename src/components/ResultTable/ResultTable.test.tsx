@@ -9,15 +9,15 @@ vi.mock('@mui/x-data-grid', () => ({
     rows,
     columns,
     loading,
-    pageSize,
-    onPageSizeChange,
+    paginationModel,
+    onPaginationModelChange,
     ...props
   }: any) => (
     <div data-testid="data-grid">
       <div data-testid="grid-rows-count">{rows.length}</div>
       <div data-testid="grid-columns-count">{columns.length}</div>
       <div data-testid="grid-loading">{loading.toString()}</div>
-      <div data-testid="grid-page-size">{pageSize}</div>
+      <div data-testid="grid-page-size">{paginationModel?.pageSize || ''}</div>
       {columns.map((col: any, index: number) => (
         <div key={index} data-testid={`column-${col.field}`}>
           {col.headerName}
@@ -30,7 +30,7 @@ vi.mock('@mui/x-data-grid', () => ({
       ))}
       <button
         data-testid="page-size-button"
-        onClick={() => onPageSizeChange && onPageSizeChange(50)}
+        onClick={() => onPaginationModelChange && onPaginationModelChange({ page: 0, pageSize: 50 })}
       >
         Change Page Size
       </button>
@@ -49,6 +49,10 @@ vi.mock('@mui/material', () => ({
   Skeleton: ({ variant, sx, ...props }: any) => (
     <div data-testid="skeleton" data-variant={variant} style={sx} {...props} />
   )
+}));
+
+vi.mock('utils', () => ({
+  SKELETON_ROWS_COUNT: 18
 }));
 
 describe('ResultTable', () => {
