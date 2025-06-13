@@ -27,6 +27,9 @@ Condition Builder is a lightweight web application built with ReactJS and TypeSc
 This tool allows you to load an array of data and layer in and/or conditions to filter the data. The app supports filtering by any attribute. It also provides pagination controls to change the page size and offset. The focus is on the correct implementation of the functional requirements while leveraging modern React patterns and libraries.
 
 Filtering examples:
+<img width="1205" alt="Screenshot 2025-06-13 at 12 07 23 AM" src="https://github.com/user-attachments/assets/ea3eb565-ae78-48cb-9a55-02d73c6580a8" />
+
+<img width="1082" alt="Screenshot 2025-06-13 at 12 08 56 AM" src="https://github.com/user-attachments/assets/44d7f32c-0764-4594-9b7f-48839992c7dd" />
 
 ## Code Structure
 
